@@ -47,7 +47,7 @@ pipeline {
             }
         }
     }
-    post{
+    '''post{
         always{
             //will be always executed
         }
@@ -57,5 +57,5 @@ pipeline {
         failure{
             //if build failed
         }
-    }
+    }'''
 }
