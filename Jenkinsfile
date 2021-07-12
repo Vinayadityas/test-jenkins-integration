@@ -39,23 +39,17 @@ pipeline {
                     sh "some script ${USER} ${PWD}"
                 }
             }
+        }
+        stage('Copy to dev server'){
             steps{
-                sshagent(['dev_server']){
+                steps{
                     echo 'copy file to dev server'
-                    sh 'scp -o StrictHostKeyChecking=no build/libs/pipeline_scripted.jar ubuntu@192.168.50.200:/opt/sam/'
+                    sshagent(['dev_server']){
+
+                        sh 'scp -o StrictHostKeyChecking=no build/libs/pipeline_scripted.jar ubuntu@192.168.50.200:/opt/sam/'
+                    }
                 }
             }
         }
     }
-    '''post{
-        always{
-            //will be always executed
-        }
-        success{
-            // if build succeed perform some action
-        }
-        failure{
-            //if build failed
-        }
-    }'''
 }
