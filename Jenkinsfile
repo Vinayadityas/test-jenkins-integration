@@ -17,16 +17,12 @@ pipeline {
                 sh 'gradle build'
             }
         }
-
-
         stage('Copy to dev server'){
             steps{
-                steps{
-                    echo 'copy file to dev server'
-                    sshagent(['dev_server']){
+                echo 'copy file to dev server'
+                sshagent(['remote-server']){
 
-                        sh 'scp build/libs/pipeline_scripted.jar ubuntu@192.168.50.200:/opt/sam/'
-                    }
+                    sh 'scp build/libs/pipeline_job.jar remote@192.168.50.34:/home/remote/'
                 }
             }
         }
